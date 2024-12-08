@@ -15,12 +15,13 @@ The server is responsible for accepting HTTP POST requests and executing file-re
 - **store update <filename>**: Creates a new file with the given name or updates an existing file with a timestamp.
 - **store freq-words**: Counts the frequency of words across all files in the `/app/files/` directory.
 - **store wc**: Counts the total number of words across all files in the `/app/files/` directory.
+- **store add <filename> <content>**: Creates a new file with the given name and given content or updates an existing with the given content `/app/files/` directory.
 
 The server is implemented using Java's `HttpServer` and listens for requests on `http://localhost:8080/process-input`.
 
 ### 2. **Client-Side (InputHandlingHttpClient.java)**
 
-The client is a simple command-line program that prompts the user for input. The user can enter commands that the client sends as HTTP POST requests to the server. Valid commands include `store ls`, `store rm <filename>`, `store update <filename>`, `store freq-words`, and `store wc`.
+The client is a simple command-line program that prompts the user for input. The user can enter commands that the client sends as HTTP POST requests to the server. Valid commands include `store ls`, `store rm <filename>`, `store update <filename>`, `store freq-words`, and `store wc`,`store add <filename> <content>` .
 
 The client will print the server's response to the console. If an invalid command is entered, an error message is shown.
 
@@ -55,6 +56,9 @@ The `Dockerfile` is used to build a Docker image for the application. It copies 
    Open a terminal and navigate to the directory containing the project files, including the Dockerfile. Run the following command to build the Docker image:
    ```bash
     docker build -f mydocer.dockerfile -t java-http-server-client .
+   Open a terminal and navigate to the directory containing the project files, including the Dockerfile. Run the following command to run the Docker image:
+   ```bash
+    docker run -it --rm java-http-server-client
 
 ### Directory Structure:
 ```bash

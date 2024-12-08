@@ -34,7 +34,7 @@ public class InputHandlingHttpServer {
                     Files.createDirectories(currentDir);
 
                     // Handle the "store ls" command
-                    if (input.startsWith("store ls")) {
+                    if (input.equals("store ls")) {
                         StringBuilder output = new StringBuilder();
                         try (var stream = Files.list(currentDir)) {
                             for (Path path : (Iterable<Path>) stream::iterator) {
@@ -74,8 +74,29 @@ public class InputHandlingHttpServer {
                             response = "File '" + filename + "' created successfully.";
                         }
                     }
+                    // Handle the "store add <filename> <content>" command
+                    else if (input.startsWith("store add ")) {
+                        String[] parts = input.substring(10).split(" ", 2); // Extract filename and content
+                        if (parts.length < 2) {
+                            response = "Invalid input. Format: store add <filename> <content>";
+                        } else {
+                            String filename = parts[0].trim();
+                            String content = parts[1].trim();
+                            Path filePath = currentDir.resolve(filename); // Resolve the file path relative to currentDir
+
+                            // Append the content to the file
+                            try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath.toFile(), true))) {
+                                writer.write(content);
+                                writer.newLine(); // Ensure new content is on a new line
+                            } catch (IOException e) {
+                                response = "Error appending content to file: " + filename;
+                            }
+
+                            response = "Content has been added to file '" + filename + "'.";
+                        }
+                    }
                     // Handle the "store freq-words" command
-                    else if (input.startsWith("store freq-words")) {
+                    else if (input.equals("store freq-words")) {
                         Map<String, Integer> wordFrequency = new HashMap<>();
 
                         // Iterate over files and count word frequencies
@@ -115,7 +136,7 @@ public class InputHandlingHttpServer {
                         }
                     }
                     // Handle the "store wc" command
-                    else if (input.startsWith("store wc")) {
+                    else if (input.equals("store wc")) {
                         long totalWordCount = 0;
 
                         try (var stream = Files.list(currentDir)) {
@@ -145,7 +166,8 @@ public class InputHandlingHttpServer {
                                 " - 'store update <filename>'\n" +
                                 " - 'store ls'\n" +
                                 " - 'store wc'\n" +
-                                " - 'store freq-words'";
+                                " - 'store freq-words'\n" +
+                                " - 'store add <filename> <content>'";
                         exchange.sendResponseHeaders(400, response.getBytes().length);
                     }
 

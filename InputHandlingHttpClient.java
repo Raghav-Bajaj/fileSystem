@@ -53,12 +53,13 @@ public class InputHandlingHttpClient {
                 // Display a custom error message
                 String errorMessage = "An error occurred while communicating with the server.\n" +
                                       "Ensure the server is running and try again.\n" +
-                                      "Valid commands:\n" +
+                                      "Invalid input. Use:\n" +
                                       " - 'store rm <filename>'\n" +
                                       " - 'store update <filename>'\n" +
-                                      " - 'store ls'\n"+ 
-                                      " - 'store wc'\n"+ 
-                                      " - 'store freq-words'";
+                                      " - 'store ls'\n" +
+                                      " - 'store wc'\n" +
+                                      " - 'store freq-words'\n" +
+                                      " - 'store add <filename> <content>'";
                 System.out.println(errorMessage);
             }
         }

@@ -12,9 +12,6 @@ RUN mkdir /app/files
 
 COPY resources/retro.txt /app/files/
 
-# Install necessary packages (like maven if you need)
-# RUN apt-get update && apt-get install -y maven
-
 # Compile the Java files
 RUN javac InputHandlingHttpServer.java InputHandlingHttpClient.java
 
