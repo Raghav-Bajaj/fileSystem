@@ -57,8 +57,8 @@ The `Dockerfile` is used to build a Docker image for the application. It copies 
   Open a terminal and navigate to the directory containing the project files, including the Dockerfile. Run the following command to build the Docker image:
    ```bash
     docker build -f mydocer.dockerfile -t java-http-server-client .
-    
-2. **Build the Docker Image**:
+
+2. **Run the Docker Image**:
    Open a terminal and navigate to the directory containing the project files, including the Dockerfile. Run the following command to run the Docker image:
    ```bash
     docker run -it --rm java-http-server-client
